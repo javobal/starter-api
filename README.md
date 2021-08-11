@@ -1,11 +1,11 @@
-##API Starter Project
+# API Starter Project
 
 * Node v14
 * Typescript
 * Yarn
 * Express
 
-### Arquitecture
+#### Arquitecture
 
 The application is divided in the database layer (Model), Business logic layer (Services) and API layer (Router)
 

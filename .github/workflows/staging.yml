@@ -6,6 +6,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  FIREBASE_ADMIN_SA: ${{ secrets.FIREBASE_ADMIN_SA_KEY }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1 
   DEPLOYMENT_NAME: starter-api
@@ -39,12 +40,17 @@ jobs:
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
+    # Create the Service Account file
+    - name: Firebase Admin Service Account File Creation
+      run: |-
+        mkdir ./sec ; echo $FIREBASE_ADMIN_SA > ./sec/firebase_admin_service_account.json
+
     # Build the Docker image
     - name: Build
       run: |-
         docker build \
           --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GOOGLE_APPLICATION_CREDENTIALS="${{ secrets.FIREBASE_ADMIN_SA_KEY }}" \
+          --build-arg GOOGLE_APPLICATION_CREDENTIALS="sec/firebase_admin_service_account.json" \
           .
 
     # Push the Docker image to Google Container Registry
