@@ -9,8 +9,8 @@ env:
   FIREBASE_ADMIN_SA: ${{ secrets.FIREBASE_ADMIN_SA_KEY }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1 
-  DEPLOYMENT_NAME: starter-api
-  IMAGE: starter-api
+  DEPLOYMENT_NAME: production-starter-api
+  IMAGE: production-starter-api
 
 jobs:
   setup-build-publish-deploy:
