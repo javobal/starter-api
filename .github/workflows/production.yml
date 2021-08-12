@@ -1,23 +1,22 @@
-name: Build and Deploy to GKE (Staging)
+name: Build and Deploy to GKE (Production)
 
 on:
-  push:
-    branches:
-      - master
-
+  release:
+    types: [created]
+  
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   FIREBASE_ADMIN_SA: ${{ secrets.FIREBASE_ADMIN_SA_KEY }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1 
-  DEPLOYMENT_NAME: starter-api-staging
-  IMAGE: starter-api-staging
+  DEPLOYMENT_NAME: starter-api
+  IMAGE: starter-api
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
-    environment: staging
+    environment: production
 
     steps:
     - name: Checkout
