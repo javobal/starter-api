@@ -1,0 +1,5 @@
+commonLabels:
+  app: stag-starter-api
+resources:
+- ./../base
+namePrefix: staging-
