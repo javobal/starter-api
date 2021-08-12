@@ -7,7 +7,7 @@
 
 #### Arquitecture
 
-The application is divided in the database layer (Model), Business logic layer (Services) and API layer (Router)
+The application is divided in database layer (Model), Business logic layer (Services) and API layer (Router)
 
 #### Services
 
