@@ -6,6 +6,7 @@ on:
   
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  FIREBASE_ADMIN_SA: ${{ secrets.FIREBASE_ADMIN_SA_KEY }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1 
   DEPLOYMENT_NAME: production-starter-api
@@ -41,8 +42,10 @@ jobs:
 
     # Create the Service Account file
     - name: Firebase Admin Service Account File Creation
+      env:
+        FIREBASE_ADMIN_SA: ${{ secrets.FIREBASE_ADMIN_SA_KEY }}
       run: |-
-        mkdir ./sec ; echo ${{ secrets.FIREBASE_ADMIN_SA_KEY }} > ./sec/firebase_admin_service_account.json
+        mkdir ./sec ; echo $FIREBASE_ADMIN_SA > ./sec/firebase_admin_service_account.json
 
     # Build the Docker image
     - name: Build
