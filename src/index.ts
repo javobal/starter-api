@@ -1,15 +1,29 @@
 import express from "express";
-import { usersRouter } from "./routes/users";
+import morgan from "morgan";
+import {RegisterRoutes} from "./routes/routes";
 import initFirebase from "./lib/firebase";
+import swaggerUi from "swagger-ui-express";
 initFirebase()
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+app.use(express.json());
+app.use(morgan("tiny"));
+app.use(express.static("public"));
 
-app.use("/users", usersRouter);
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "/swagger.json",
+    },
+  })
+);
+
+RegisterRoutes(app)
+
+
 
 app.listen(process.env.PORT, () => {
   console.log(`app listening at http://localhost:${process.env.PORT}`);

@@ -1,0 +1,11 @@
+{
+    "entryFile": "src/index.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "routes": {
+        "routesDir": "src/routes"
+    },
+    "spec": {
+      "outputDirectory": "public",
+      "specVersion": 3
+    }
+  }
