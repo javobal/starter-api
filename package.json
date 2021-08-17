@@ -4,13 +4,17 @@
   "description": "API starter template",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon -r dotenv/config dist/index.js\"",
-    "build": "tsc",
-    "predev": "tsoa spec",
-    "prebuild": "tsoa spec"
+    "dev": "concurrently \"tsc -w\" \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
+    "build": "tsoa spec-and-routes && tsc"
   },
   "author": "Javier Balam",
   "license": "ISC",
+  "nodemonConfig": {
+    "exec": "node -r dotenv/config dist/index.js",
+    "watch": [
+      "dist"
+    ]
+  },
   "dependencies": {
     "express": "^4.17.1",
     "firebase-admin": "^9.11.0",
