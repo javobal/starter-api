@@ -1,9 +1,9 @@
 # API Starter Project
 
-* Node v14
-* Typescript
-* Yarn
-* Express
+-   Node v14
+-   Typescript
+-   Yarn
+-   Express
 
 #### Arquitecture
 

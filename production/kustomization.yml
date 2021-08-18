@@ -1,5 +1,5 @@
 commonLabels:
-  app: prod-starter-api
+    app: prod-starter-api
 resources:
-- ./../base
+    - ./../base
 namePrefix: production-
