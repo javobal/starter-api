@@ -9,11 +9,34 @@
 			"User": {
 				"properties": {
 					"name": {
-						"type": "string"
+						"type": "string",
+						"description": "The name the user used to register his account"
 					}
 				},
 				"required": [
 					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -57,6 +80,47 @@
 				],
 				"security": [],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOrUpdate",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string",
+									"nullable": true
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/User"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/users/{id}": {
@@ -79,12 +143,14 @@
 						}
 					}
 				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
 				"tags": [
 					"Users"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
