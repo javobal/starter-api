@@ -1,4 +1,4 @@
-import chai, { expect } from "chai"
+import chai from "chai"
 import { User } from "../../model/user"
 import { signup } from '../../services/user.service'
 import chaiAsPromised from 'chai-as-promised'
@@ -9,7 +9,7 @@ chai.use(chaiAsPromised);
 chai.should();
 
 describe('user.service', function() {
-    let createOrUpdateStub;
+    let createOrUpdateStub: sinon.SinonStub<[userData: User], Promise<string>>;
 
     beforeEach(function () {
         createOrUpdateStub = sinon.stub(userRepository, "createOrUpdate");
@@ -18,11 +18,12 @@ describe('user.service', function() {
     afterEach(function () {
         createOrUpdateStub.restore();
     });
+    
     it('signup', function() {
         const testUser : User = {
             name: 'Javier'
         }
-        createOrUpdateStub.returns(Promise.resolve({ id: 'javier'}));
-        return signup(testUser).should.eventually.be.fulfilled.with.property('id', 'javier')
+        createOrUpdateStub.returns(Promise.resolve('javier'));
+        return signup(testUser).should.eventually.be.fulfilled.with.string('javier')
     })
 })
