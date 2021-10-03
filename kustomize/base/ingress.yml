@@ -4,8 +4,7 @@ metadata:
   name: starter-api-ingress
 spec:
   rules:
-  - host: starter-api.javobal.xyz
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
