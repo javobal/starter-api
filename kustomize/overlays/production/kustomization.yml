@@ -4,4 +4,4 @@ resources:
     - ../../base
 namePrefix: production-
 patchesStrategicMerge:
-    - ingress.yaml
+    - ingress.yml
