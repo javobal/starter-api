@@ -3,6 +3,14 @@ kind: Ingress
 metadata:
   name: starter-api-ingress
 spec:
-  tls:
-  - hosts:
-    - starter-api.javobal.xyz
+  rules:
+  - host: starter-api.javobal.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: starter-api-service
+            port: 
+              number: 80
