@@ -3,14 +3,15 @@ kind: Ingress
 metadata:
   name: starter-api-ingress
 spec:
+  ingressClassName: staging-nginx
   rules:
-  - host: starter-api-stag.javobal.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: starter-api-service
-            port: 
-              number: 80
+    - host: starter-api-stag.javobal.xyz
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: starter-api-service
+              port:
+                number: 80
