@@ -63,14 +63,14 @@ jobs:
             # Set up kustomize
             - name: Set up Kustomize
               run: |-
-                  curl -sfLo kustomizeTool https://github.com/kubernetes-sigs/kustomize/releases/download/v4.4.0/kustomize_4.4.0_linux_amd64
-                  chmod u+x ./kustomizeTool
+                  curl -sfL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.4.0/kustomize_v4.4.0_linux_amd64.tar.gz | tar -xz -C ./kustomize
+                  chmod u+x ./kustomize/kustomize
 
             # Deploy the Docker image to the GKE cluster
             - name: Deploy
               run: |-
                   cd ./kustomize/base
-                  ../../kustomizeTool edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-                  ../../kustomizeTool build ../overlays/staging | kubectl apply -f -
+                  ../kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+                  ../kustomize build ../overlays/staging | kubectl apply -f -
                   kubectl rollout status deployment/$DEPLOYMENT_NAME
                   kubectl get services -o wide
