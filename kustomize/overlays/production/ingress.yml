@@ -2,7 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: starter-api-ingress
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-production"
 spec:
+  ingressClassName: production-nginx
   rules:
     - host: starter-api.javobal.xyz
       http:
