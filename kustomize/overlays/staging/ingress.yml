@@ -6,6 +6,10 @@ metadata:
     cert-manager.io/issuer: "letsencrypt-staging"
 spec:
   ingressClassName: staging-nginx
+  tls:
+  - hosts:
+    - starter-api-stag.javobal.xyz
+    secretName: staging-starter-api-tls
   rules:
     - host: starter-api-stag.javobal.xyz
       http:
