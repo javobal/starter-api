@@ -32,6 +32,20 @@ Important using Kustomize 4.4.0, do not use kubectl -k option, kubectl's emmbede
 ### initial GKE provisioning
 At some point automate this process with ansible ?
 
+Costs:
+* Load Balancer
+* GKE management fee and resources costs
+* optional static ip ? 
+
+Management fees for 1 autopilot cluster is included in the free tier, around 75 usd per month.
+cpu + storage and memory used
+
+Remember to configure cert manager and nginx controller so they do not use the default 1 vcpu and 512 MiB which is overkill
+
+Change the premium tier or std tier, around 350MX for the premium tier cloud load balancer
+because of the way we have setup nginx controller it is using a single load balancer for our cluster
+https://console.cloud.google.com/net-tier/tiers/details?project=javobalapp
+
 1.Install cert-manager
 2.install nginx controller
 3.create cluster issuer
