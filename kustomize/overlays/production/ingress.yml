@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: starter-api-ingress
   annotations:
-    cert-manager.io/issuer: "letsencrypt-production"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
   ingressClassName: production-nginx
   tls:
