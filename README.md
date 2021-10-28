@@ -42,12 +42,16 @@ cpu + storage and memory used
 
 Remember to configure cert manager and nginx controller so they do not use the default 1 vcpu and 512 MiB which is overkill
 
+#### Load balancer tier
 Change the premium tier or std tier, around 350MX for the premium tier cloud load balancer
 because of the way we have setup nginx controller it is using a single load balancer for our cluster
 https://console.cloud.google.com/net-tier/tiers/details?project=javobalapp
 
-1.Install cert-manager
-2.install nginx controller
-3.create cluster issuer
-4.run github actions or deploy from local kubectl using kustomize without tls configs. otherwise the load balancer won't be provisioned and cert manager cant verify the endpoint, it needs the http to create the certificate.
-5.apply tls configs
+OR add this annotation to the nginx controller service : cloud.google.com/network-tier: Standard
+
+1. Install cert-manager
+2. install nginx controller
+3. add tier annotation for nginx service
+3. create cluster issuer
+4. run github actions or deploy from local kubectl using kustomize without tls configs. otherwise the load balancer won't be provisioned and cert manager cant verify the endpoint, it needs the http to create the certificate.
+5. apply tls configs
