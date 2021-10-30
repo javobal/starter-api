@@ -64,11 +64,15 @@ OR add this annotation to the nginx controller service : cloud.google.com/networ
 * In STD around 1.2 vCPU is already requested for system pods (in my test 520 mCPU / 468 mCPU / 480 mCPU), means 1.8 vCPU are available (not sure because of g1-small rules)
 * STD allows smaller .1 vCPU increments, Auto minimum pod vCPU is .25
 * On demand prices considered, chepaer prices if commited for a year
+* on e2-micro is in the free tier
 
 #### Conclusions
 * Std allows for smaller vCPU requests increments so you can fit more pods in a single node, if the apps are small
-* for this starter api template i needed 6 pods so that 0.25 vCPU x 6 = 1.5 vCPU @ 32 USD/month = ~48 USD/month. same as having the std cluster
+* for this starter api template 
+  * Autopilot: 0.25 vCPU x 6 pods = 1.5 vCPU @ 32 USD/month = ~48 USD/month
+  * Std: g1-small 3 nodes cluster = ~40 USD/month (includes sustained disccount)
 
 #### Refs
 * https://cloud.google.com/kubernetes-engine/pricing
 * https://cloud.google.com/compute/all-pricing#sharedcore
+* https://cloud.google.com/compute/vm-instance-pricing#sustained_use
