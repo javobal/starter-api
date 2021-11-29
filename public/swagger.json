@@ -1,157 +1,177 @@
 {
-    "components": {
-        "examples": {},
-        "headers": {},
-        "parameters": {},
-        "requestBodies": {},
-        "responses": {},
-        "schemas": {
-            "User": {
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name the user used to register his account"
-                    }
-                },
-                "required": ["name"],
-                "type": "object",
-                "additionalProperties": false
-            },
-            "ValidateErrorJSON": {
-                "properties": {
-                    "message": {
-                        "type": "string",
-                        "enum": ["Validation failed"],
-                        "nullable": false
-                    },
-                    "details": {
-                        "properties": {},
-                        "additionalProperties": {},
-                        "type": "object"
-                    }
-                },
-                "required": ["message", "details"],
-                "type": "object",
-                "additionalProperties": false
-            }
-        },
-        "securitySchemes": {}
-    },
-    "info": {
-        "title": "javobal-starter-api",
-        "version": "1.0.0",
-        "description": "API starter template",
-        "license": {
-            "name": "ISC"
-        },
-        "contact": {
-            "name": "Javier Balam"
-        }
-    },
-    "openapi": "3.0.0",
-    "paths": {
-        "/users": {
-            "get": {
-                "operationId": "List",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "items": {
-                                        "$ref": "#/components/schemas/User"
-                                    },
-                                    "type": "array"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [],
-                "parameters": []
-            },
-            "post": {
-                "operationId": "CreateOrUpdate",
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "nullable": true
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Failed",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidateErrorJSON"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [],
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "get": {
-                "operationId": "GetById",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/User"
-                                        }
-                                    ],
-                                    "nullable": true
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
-                "tags": ["Users"],
-                "security": [],
-                "parameters": [
-                    {
-                        "description": "The user's identifier",
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "servers": [
-        {
-            "url": "/"
-        }
-    ]
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string",
+						"description": "The name the user used to register his account"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "javobal-starter-api",
+		"version": "1.0.0",
+		"description": "API starter template",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Javier Balam"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/users": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/User"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOrUpdate",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string",
+									"nullable": true
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/User"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/User"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The user's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
 }

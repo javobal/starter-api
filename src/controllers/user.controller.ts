@@ -11,6 +11,7 @@ import {
     SuccessResponse,
 } from 'tsoa'
 import { User } from '../model/user'
+import * as userService from '../services/user.service'
 
 interface ValidateErrorJSON {
     message: 'Validation failed'
@@ -42,6 +43,6 @@ export class UserController extends Controller {
         @Body() userData: User
     ): Promise<string | null> {
         this.setStatus(201)
-        return users.createOrUpdate(userData)
+        return userService.signup(userData)
     }
 }

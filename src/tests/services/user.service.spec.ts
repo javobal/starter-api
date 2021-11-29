@@ -21,7 +21,8 @@ describe('user.service', function() {
     
     it('signup', function() {
         const testUser : User = {
-            name: 'Javier'
+            name: 'Javier',
+            email: 'javier.balam@gmail.com'
         }
         createOrUpdateStub.returns(Promise.resolve('javier'));
         return signup(testUser).should.eventually.be.fulfilled.with.string('javier')
