@@ -19,6 +19,15 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "usersResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "count": {"dataType":"double","required":true},
+            "users": {"dataType":"array","array":{"dataType":"refObject","ref":"User"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ValidateErrorJSON": {
         "dataType": "refObject",
         "properties": {
@@ -42,6 +51,9 @@ export function RegisterRoutes(app: express.Router) {
 
             function UserController_list(request: any, response: any, next: any) {
             const args = {
+                    limit: {"in":"query","name":"limit","dataType":"double"},
+                    page: {"in":"query","name":"page","dataType":"double"},
+                    cursor: {"in":"query","name":"cursor","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

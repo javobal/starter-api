@@ -8,6 +8,7 @@ import express, {
     NextFunction,
 } from 'express'
 import { ValidateError } from 'tsoa'
+import cors from 'cors'
 initFirebase()
 
 const app = express()
@@ -15,6 +16,7 @@ const app = express()
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(express.static('public'))
+app.use(cors())
 
 app.use(
     '/docs',

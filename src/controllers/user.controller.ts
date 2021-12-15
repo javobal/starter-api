@@ -9,6 +9,7 @@ import {
     Controller,
     Response,
     SuccessResponse,
+    Query,
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'
@@ -18,12 +19,17 @@ interface ValidateErrorJSON {
     details: { [name: string]: unknown }
 }
 
+interface usersResponse {
+    count: number
+    users: User[]
+}
+
 @Route('users')
 @Tags('Users')
 export class UserController extends Controller {
     @Get('/')
-    public async list(): Promise<Array<User>> {
-        return users.list()
+    public async list(@Query() limit?: number , @Query() page?: number ,@Query() cursor?: string): Promise<usersResponse> {
+        return users.list(limit, page, cursor)
     }
 
     /**

@@ -1,9 +1,33 @@
 import * as admin from 'firebase-admin'
 import { User } from '../model/user'
 
-export const list = async () => {
-    const users = await admin.firestore().collection('users').get()
-    return users.docs.map((u) => u.data() as User)
+export const list = async (
+    limit: number = 10,
+    page: number = 0,
+    cursor: string | undefined = undefined
+) => {
+    let cursorSnapshot
+    if (cursor) {
+        cursorSnapshot = await admin
+            .firestore()
+            .collection('users')
+            .doc(cursor || '0')
+            .get()
+    }
+
+    const allUsers = await admin.firestore().collection('users').get()
+
+    const users = await admin
+        .firestore()
+        .collection('users')
+        .limit(limit)
+        //.startAfter(cursorSnapshot || null)
+        .offset(limit * page)
+        .get()
+    return {
+        count: allUsers.size,
+        users: users.docs.map((u) => ({ ...u.data(), id: u.id } as User)),
+    }
 }
 
 export const getById = async (id: string) => {
