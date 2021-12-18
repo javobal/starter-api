@@ -15,14 +15,13 @@
 						"type": "string",
 						"description": "The name the user used to register his account"
 					},
+					"lastName": {
+						"type": "string"
+					},
 					"email": {
 						"type": "string"
 					}
 				},
-				"required": [
-					"name",
-					"email"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -140,8 +139,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "string",
-									"nullable": true
+									"type": "string"
 								}
 							}
 						}
@@ -161,17 +159,7 @@
 					"Users"
 				],
 				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/User"
-							}
-						}
-					}
-				}
+				"parameters": []
 			}
 		},
 		"/users/{id}": {

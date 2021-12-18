@@ -32,7 +32,7 @@ export const check = async (uid: string) => {
             return newUser.id
         }
     } catch (error) {
-        console.error('user.service check error: ', error)
+        console.error('user.service.check error: ', error)
         throw error
     }
 }

@@ -10,9 +10,13 @@ import {
     Response,
     SuccessResponse,
     Query,
+    Middlewares,
+    Request
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'
+import authMiddleware from './authMiddleware'
+import { Request as ExpressRequest } from 'express'
 
 interface ValidateErrorJSON {
     message: 'Validation failed'
@@ -44,11 +48,13 @@ export class UserController extends Controller {
 
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
     @SuccessResponse(201, 'Created')
+    @Middlewares(authMiddleware)
     @Post('/')
     public async createOrUpdate(
-        @Body() userData: User
-    ): Promise<string | null> {
+        @Request() req: ExpressRequest
+    ): Promise<string> {
         this.setStatus(201)
-        return userService.check(userData)
+        const userId = await userService.check(req.token.uid)
+        return userId ?? ''
     }
 }

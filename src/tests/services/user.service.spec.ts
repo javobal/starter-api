@@ -1,17 +1,20 @@
 import chai from 'chai'
-import { User } from '../../model/user'
-import { check } from '../../services/user.service'
-import chaiAsPromised from 'chai-as-promised'
-import * as userRepository from '../../repositories/user.repository'
 import sinon from 'sinon'
+import chaiAsPromised from 'chai-as-promised'
+
+// function under test
+import { check } from '../../services/user.service'
+
+// dependencies
+import { User } from '../../model/user'
+import * as userRepository from '../../repositories/user.repository'
 import * as auth from 'firebase-admin/auth'
 import { UserRecord } from 'firebase-admin/auth'
-import * as admin from 'firebase-admin'
 
 chai.use(chaiAsPromised)
 chai.should()
 
-describe('user.service | check', function () {
+describe('user.service.check', function () {
     afterEach(function () {
         sinon.restore()
     })
@@ -30,7 +33,7 @@ describe('user.service | check', function () {
         )
     })
 
-    it('should return uid if its a new user', function () {
+    it('should return uid if it is a new user', function () {
         const testUser: User = {
             id: 'test-user-id',
             name: 'Javer',
