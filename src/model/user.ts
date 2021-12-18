@@ -3,6 +3,7 @@ export class User {
     /**
      * The name the user used to register his account
      */
-    name!: string
-    email!: string
+    name?: string
+    lastName?: string
+    email?: string
 }

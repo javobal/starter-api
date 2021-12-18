@@ -49,6 +49,6 @@ export class UserController extends Controller {
         @Body() userData: User
     ): Promise<string | null> {
         this.setStatus(201)
-        return userService.signup(userData)
+        return userService.check(userData)
     }
 }
