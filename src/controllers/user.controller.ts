@@ -54,7 +54,7 @@ export class UserController extends Controller {
         @Request() req: ExpressRequest
     ): Promise<string> {
         this.setStatus(201)
-        const userId = await userService.check(req.token.uid)
+        const userId = await userService.check(req.token!.uid)
         return userId ?? ''
     }
 }

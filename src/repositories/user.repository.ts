@@ -42,5 +42,5 @@ export const createOrUpdate = async (userData: User) => {
 
     const user = await doc.get()
 
-    return { ...user.data(), id: user.id } as User }
+    return { ...user.data(), id: user.id } as User 
 }
