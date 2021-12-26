@@ -53,6 +53,8 @@ jobs:
                   docker build \
                     --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
                     --build-arg GOOGLE_APPLICATION_CREDENTIALS="sec/firebase_admin_service_account.json" \
+                    --build-arg MAILGUN_DOMAIN=$MAILGUN_DOMAIN \
+                    --build-arg MAILGUN_API_KEY=$MAILGUN_API_KEY \
                     .
 
             # Push the Docker image to Google Container Registry

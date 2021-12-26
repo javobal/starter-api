@@ -26,7 +26,7 @@ Important using Kustomize 4.4.0, do not use kubectl -k option, kubectl's emmbede
 ### GKE config
 * cert-manager
 * nginx-controller
-* kubectl v1.21 Rapid channel (needed to support cert-manager)
+* kubectl > v1.21 (needed to support cert-manager)
 
 ### Initial GKE provisioning
 At some point automate this process with ansible ?
