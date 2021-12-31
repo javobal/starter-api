@@ -68,7 +68,13 @@
 				"additionalProperties": false
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"access_token": {
+				"type": "http",
+				"name": "access_token",
+				"scheme": "bearer"
+			}
+		}
 	},
 	"info": {
 		"title": "javobal-starter-api",
@@ -101,7 +107,11 @@
 				"tags": [
 					"Users"
 				],
-				"security": [],
+				"security": [
+					{
+						"access_token": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "query",
@@ -190,6 +200,32 @@
 				"parameters": [
 					{
 						"description": "The user's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Deleted"
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "path",
 						"name": "id",
 						"required": true,

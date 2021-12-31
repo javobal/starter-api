@@ -11,7 +11,9 @@ import {
     SuccessResponse,
     Query,
     Middlewares,
-    Request
+    Request,
+    Delete,
+    Security
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'
@@ -32,6 +34,7 @@ interface usersResponse {
 @Tags('Users')
 export class UserController extends Controller {
     @Get('/')
+    @Security('access_token')
     public async list(@Query() limit?: number , @Query() page?: number ,@Query() cursor?: string): Promise<usersResponse> {
         return users.list(limit, page, cursor)
     }
@@ -57,4 +60,16 @@ export class UserController extends Controller {
         const userId = await userService.check(req.token!.uid)
         return userId ?? ''
     }
+
+    @Delete('/:id')
+    @Security('access_token')
+    @SuccessResponse(200, 'Deleted')
+    public async delete(
+        @Request() req: ExpressRequest,
+        @Path() id: string
+    ): Promise<void> {
+        this.setStatus(200)
+        return userService.deleteById(id)
+    }
+
 }

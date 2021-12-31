@@ -2,10 +2,18 @@
     "entryFile": "src/index.ts",
     "noImplicitAdditionalProperties": "throw-on-extras",
     "routes": {
-        "routesDir": "src/routes"
+        "routesDir": "src/routes",
+        "authenticationModule": "src/controllers/authMiddleware.ts"
     },
     "spec": {
         "outputDirectory": "public",
-        "specVersion": 3
+        "specVersion": 3,
+        "securityDefinitions": {
+            "access_token": {
+                "type": "http",
+                "name": "access_token",
+                "scheme": "bearer"
+            }
+        }
     }
 }

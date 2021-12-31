@@ -44,3 +44,8 @@ export const createOrUpdate = async (userData: User) => {
 
     return { ...user.data(), id: user.id } as User 
 }
+
+export const deleteById = async (id: string) => {
+    const doc = await admin.firestore().collection('users').doc(id)
+    await doc.delete()
+}

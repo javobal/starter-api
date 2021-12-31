@@ -36,3 +36,15 @@ export const check = async (uid: string) => {
         throw error
     }
 }
+
+export const deleteById = async (uid: string) => { 
+    try {
+        const user = await userRepository.getById(uid)
+        if (user) {
+            await userRepository.deleteById(uid)
+        }
+    } catch (error) {
+        console.error('user.service.deleteById error: ', error)
+        throw error
+    }
+}
