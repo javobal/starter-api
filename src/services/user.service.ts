@@ -6,6 +6,7 @@ export const check = async (uid: string) => {
     try {
 
         // verify if the users already exists
+        // just a test
         const user = await userRepository.getById(uid)
 
         if (user) {
