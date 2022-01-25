@@ -72,4 +72,13 @@ export class UserController extends Controller {
         return userService.deleteById(id)
     }
 
+    @Post('/:id')
+    @Security('access_token')
+    public async update(
+        @Body() requestBody: User,
+        @Path() id: string
+    ): Promise<void> {
+        return userService.update(id, requestBody)
+    }
+
 }

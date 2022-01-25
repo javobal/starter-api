@@ -49,3 +49,15 @@ export const deleteById = async (uid: string) => {
         throw error
     }
 }
+
+export const update = async (uid: string, user: any) => { 
+    try {
+        const _user = await userRepository.getById(uid)
+        if (_user) {
+            await userRepository.update(uid, user)
+        }
+    } catch (error) {
+        console.error('user.service.update error: ', error)
+        throw error
+    }
+}
