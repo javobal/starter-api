@@ -1,6 +1,7 @@
 import morgan from 'morgan'
 import { RegisterRoutes } from './routes/routes'
 import initFirebase from './lib/firebase'
+import { init as initCasbin } from './lib/casbin'
 import swaggerUi from 'swagger-ui-express'
 import express, {
     Response as ExResponse,
@@ -10,7 +11,10 @@ import express, {
 import { ValidateError } from 'tsoa'
 import cors from 'cors'
 import { AuthError } from './controllers/authMiddleware'
+
+// Initializations
 initFirebase()
+initCasbin()
 
 const app = express()
 
@@ -43,7 +47,6 @@ app.use(function errorHandler(
     res: ExResponse,
     next: NextFunction
 ): ExResponse | void {
-
     console.error(`Error for ${req.path}:`, err)
 
     if (err instanceof ValidateError) {
@@ -54,10 +57,9 @@ app.use(function errorHandler(
         })
     }
     if (err instanceof AuthError) {
-        return res.status(401).send({ message: 'Unauthorized request' })
+        return res.status(err.status).send({ message: err.message })
     }
     if (err instanceof Error) {
-
         return res.status(500).json({
             message: 'Internal Server Error',
         })

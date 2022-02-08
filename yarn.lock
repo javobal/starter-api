@@ -597,6 +597,11 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
+await-lock@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/await-lock/-/await-lock-2.1.0.tgz#bc78c51d229a34d5d90965a1c94770e772c6145e"
+  integrity sha512-t7Zm5YGgEEc/3eYAicF32m/TNvL+XOeYZy9CvBUeJY/szM7frLolFylhrlZNWV/ohWhcUXygrBGjYmoQdxF4CQ==
+
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
@@ -719,6 +724,16 @@ camelcase@^6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.1.tgz#250fd350cfd555d0d2160b1d51510eaf8326e86e"
   integrity sha512-tVI4q5jjFV5CavAU8DXfza/TJcZutVKo/5Foskmsqcm0MsL91moHvwiGNnqaa2o6PF/7yT5ikDRcVcl8Rj6LCA==
+
+casbin@^5.13.0:
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/casbin/-/casbin-5.13.0.tgz#286835c79246eb43319d3507371457efe6d2e434"
+  integrity sha512-pN8R37/ALma3OMBx7DP9QPUWs0qI+0t+VHeUHxwM4eIY+GR0bJT74blH/ob0f/hG7WpVuA8YO3he3WSV/MyV9w==
+  dependencies:
+    await-lock "^2.0.1"
+    csv-parse "^4.15.3"
+    expression-eval "^4.0.0"
+    picomatch "^2.2.3"
 
 chai-as-promised@^7.1.1:
   version "7.1.1"
@@ -903,6 +918,11 @@ crypto-random-string@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
+
+csv-parse@^4.15.3:
+  version "4.16.3"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.16.3.tgz#7ca624d517212ebc520a36873c3478fa66efbaf7"
+  integrity sha512-cO1I/zmz4w2dcKHVvpCr7JVRu8/FymG5OEpmvsZYlccYolPBLoVGKUHgNoc4ZGkFeFlWGEDmMyBM+TTqRdW/wg==
 
 data-uri-to-buffer@1:
   version "1.2.0"
@@ -1277,6 +1297,13 @@ express@^4.17.2:
     type-is "~1.6.18"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+expression-eval@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/expression-eval/-/expression-eval-4.0.0.tgz#d6a07c93e8b33e635710419d4a595d9208b9cc5e"
+  integrity sha512-YHSnLTyIb9IKaho2IdQbvlei/pElxnGm48UgaXJ1Fe5au95Ck0R9ftm6rHJQuKw3FguZZ4eXVllJFFFc7LX0WQ==
+  dependencies:
+    jsep "^0.3.0"
 
 extend@^3.0.2, extend@~3.0.2:
   version "3.0.2"
@@ -2034,6 +2061,11 @@ js-yaml@4.1.0:
   dependencies:
     argparse "^2.0.1"
 
+jsep@^0.3.0:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/jsep/-/jsep-0.3.5.tgz#3fd79ebd92f6f434e4857d5272aaeef7d948264d"
+  integrity sha512-AoRLBDc6JNnKjNcmonituEABS5bcfqDhQAWWXNTFrqu6nVXBpBAGfcoTGZMFlIrh9FjmE1CQyX9CTNwZrXMMDA==
+
 json-bigint@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/json-bigint/-/json-bigint-1.0.0.tgz#ae547823ac0cad8398667f8cd9ef4730f5b01ff1"
@@ -2680,6 +2712,11 @@ picomatch@^2.0.4, picomatch@^2.2.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
+
+picomatch@^2.2.3:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
+  integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
 prelude-ls@~1.1.2:
   version "1.1.2"

@@ -34,7 +34,7 @@ interface usersResponse {
 @Tags('Users')
 export class UserController extends Controller {
     @Get('/')
-    @Security('access_token')
+    @Security('access_token', ['read'])
     public async list(@Query() limit?: number , @Query() page?: number ,@Query() cursor?: string): Promise<usersResponse> {
         return users.list(limit, page, cursor)
     }
@@ -45,6 +45,7 @@ export class UserController extends Controller {
      * @param id The user's identifier
      */
     @Get('/:id')
+    @Security('access_token', ['read'])
     public async getById(@Path() id: string): Promise<User | null> {
         return users.getById(id)
     }
@@ -62,7 +63,7 @@ export class UserController extends Controller {
     }
 
     @Delete('/:id')
-    @Security('access_token')
+    @Security('access_token', ['write'])
     @SuccessResponse(200, 'Deleted')
     public async delete(
         @Request() req: ExpressRequest,

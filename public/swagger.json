@@ -109,7 +109,9 @@
 				],
 				"security": [
 					{
-						"access_token": []
+						"access_token": [
+							"read"
+						]
 					}
 				],
 				"parameters": [
@@ -196,7 +198,13 @@
 				"tags": [
 					"Users"
 				],
-				"security": [],
+				"security": [
+					{
+						"access_token": [
+							"read"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"description": "The user's identifier",
@@ -221,7 +229,9 @@
 				],
 				"security": [
 					{
-						"access_token": []
+						"access_token": [
+							"write"
+						]
 					}
 				],
 				"parameters": [
