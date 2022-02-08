@@ -257,7 +257,9 @@
 				],
 				"security": [
 					{
-						"access_token": []
+						"access_token": [
+							"write"
+						]
 					}
 				],
 				"parameters": [

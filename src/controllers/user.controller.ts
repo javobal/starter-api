@@ -74,7 +74,7 @@ export class UserController extends Controller {
     }
 
     @Post('/:id')
-    @Security('access_token')
+    @Security('access_token', ['write'])
     public async update(
         @Body() requestBody: User,
         @Path() id: string
