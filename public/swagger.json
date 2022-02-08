@@ -110,7 +110,7 @@
 				"security": [
 					{
 						"access_token": [
-							"read"
+							"users:read"
 						]
 					}
 				],
@@ -201,7 +201,7 @@
 				"security": [
 					{
 						"access_token": [
-							"read"
+							"users:read"
 						]
 					}
 				],
@@ -230,7 +230,7 @@
 				"security": [
 					{
 						"access_token": [
-							"write"
+							"users:write"
 						]
 					}
 				],
@@ -258,7 +258,7 @@
 				"security": [
 					{
 						"access_token": [
-							"write"
+							"users:write"
 						]
 					}
 				],

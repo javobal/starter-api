@@ -13,7 +13,7 @@ import {
     Middlewares,
     Request,
     Delete,
-    Security
+    Security,
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'
@@ -34,8 +34,12 @@ interface usersResponse {
 @Tags('Users')
 export class UserController extends Controller {
     @Get('/')
-    @Security('access_token', ['read'])
-    public async list(@Query() limit?: number , @Query() page?: number ,@Query() cursor?: string): Promise<usersResponse> {
+    @Security('access_token', ['users:read'])
+    public async list(
+        @Query() limit?: number,
+        @Query() page?: number,
+        @Query() cursor?: string
+    ): Promise<usersResponse> {
         return users.list(limit, page, cursor)
     }
 
@@ -45,7 +49,7 @@ export class UserController extends Controller {
      * @param id The user's identifier
      */
     @Get('/:id')
-    @Security('access_token', ['read'])
+    @Security('access_token', ['users:read'])
     public async getById(@Path() id: string): Promise<User | null> {
         return users.getById(id)
     }
@@ -54,32 +58,23 @@ export class UserController extends Controller {
     @SuccessResponse(201, 'Created')
     @Middlewares(authMiddleware)
     @Post('/')
-    public async createOrUpdate(
-        @Request() req: ExpressRequest
-    ): Promise<string> {
+    public async createOrUpdate(@Request() req: ExpressRequest): Promise<string> {
         this.setStatus(201)
         const userId = await userService.check(req.token!.uid)
         return userId ?? ''
     }
 
     @Delete('/:id')
-    @Security('access_token', ['write'])
+    @Security('access_token', ['users:write'])
     @SuccessResponse(200, 'Deleted')
-    public async delete(
-        @Request() req: ExpressRequest,
-        @Path() id: string
-    ): Promise<void> {
+    public async delete(@Request() req: ExpressRequest, @Path() id: string): Promise<void> {
         this.setStatus(200)
         return userService.deleteById(id)
     }
 
     @Post('/:id')
-    @Security('access_token', ['write'])
-    public async update(
-        @Body() requestBody: User,
-        @Path() id: string
-    ): Promise<void> {
+    @Security('access_token', ['users:write'])
+    public async update(@Body() requestBody: User, @Path() id: string): Promise<void> {
         return userService.update(id, requestBody)
     }
-
 }

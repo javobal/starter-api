@@ -1,10 +1,10 @@
 import { sendEmail } from '../lib/mailgun'
 import * as userRepository from '../repositories/user.repository'
 import { getAuth } from 'firebase-admin/auth'
+import { ServiceError, UserServiceErrors } from '../types/errors'
 
 export const check = async (uid: string) => {
     try {
-
         // verify if the users already exists
         // just a test
         const user = await userRepository.getById(uid)
@@ -38,11 +38,13 @@ export const check = async (uid: string) => {
     }
 }
 
-export const deleteById = async (uid: string) => { 
+export const deleteById = async (uid: string) => {
     try {
         const user = await userRepository.getById(uid)
         if (user) {
             await userRepository.deleteById(uid)
+        } else {
+            throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
         }
     } catch (error) {
         console.error('user.service.deleteById error: ', error)
@@ -50,7 +52,7 @@ export const deleteById = async (uid: string) => {
     }
 }
 
-export const update = async (uid: string, user: any) => { 
+export const update = async (uid: string, user: any) => {
     try {
         const _user = await userRepository.getById(uid)
         if (_user) {

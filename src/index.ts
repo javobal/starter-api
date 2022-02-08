@@ -10,7 +10,7 @@ import express, {
 } from 'express'
 import { ValidateError } from 'tsoa'
 import cors from 'cors'
-import { AuthError } from './controllers/authMiddleware'
+import { AuthError, ServiceError } from './types/errors'
 
 // Initializations
 initFirebase()
@@ -58,6 +58,13 @@ app.use(function errorHandler(
     }
     if (err instanceof AuthError) {
         return res.status(err.status).send({ message: err.message })
+    }
+    if (err instanceof ServiceError) {
+        return res.status(err.status).send({
+            message: err.message,
+            code: err.code,
+            service: err.serviceName,
+        })
     }
     if (err instanceof Error) {
         return res.status(500).json({
