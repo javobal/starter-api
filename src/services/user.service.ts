@@ -2,6 +2,8 @@ import { sendEmail } from '../lib/mailgun'
 import * as userRepository from '../repositories/user.repository'
 import { getAuth } from 'firebase-admin/auth'
 import { ServiceError, UserServiceErrors } from '../types/errors'
+import { Me, roles } from '../types/user'
+import { getEnforcer } from '../lib/casbin'
 
 export const check = async (uid: string) => {
     try {
@@ -61,5 +63,22 @@ export const update = async (uid: string, user: any) => {
     } catch (error) {
         console.error('user.service.update error: ', error)
         throw error
+    }
+}
+
+export const getRoles = async (uid: string) => {
+    const roles = await getEnforcer().getRolesForUser(uid)
+    return roles
+}
+
+export const me = async (uid: string) : Promise<Me> => { 
+    const user = await userRepository.getById(uid)
+    if (user) {
+        return {
+            user,
+            roles: await getEnforcer().getRolesForUser(uid) as unknown as roles[]
+        }
+    } else {
+        throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
     }
 }

@@ -54,6 +54,12 @@ export class UserController extends Controller {
         return users.getById(id)
     }
 
+    @Get('/:id/roles')
+    @Security('access_token', ['users:read'])
+    public async roles(@Path() id: string): Promise<string[] | null> {
+        return userService.getRoles(id)
+    }
+
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
     @SuccessResponse(201, 'Created')
     @Middlewares(authMiddleware)
