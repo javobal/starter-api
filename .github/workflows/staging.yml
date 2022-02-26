@@ -14,6 +14,7 @@ env:
 
 jobs:
     setup-build-publish-deploy:
+        if: ${{ false }}  # disable for now
         name: Setup, Build, Publish, and Deploy
         runs-on: ubuntu-latest
         environment: staging
