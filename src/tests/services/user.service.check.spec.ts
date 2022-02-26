@@ -10,6 +10,7 @@ import { User } from '../../model/user'
 import * as userRepository from '../../repositories/user.repository'
 import * as auth from 'firebase-admin/auth'
 import { UserRecord } from 'firebase-admin/auth'
+import { ServiceError, UserServiceErrors } from '../../types/errors'
 
 chai.use(chaiAsPromised)
 chai.should()
@@ -57,5 +58,11 @@ describe('user.service.check', function () {
         return check(testUser.id!).should.eventually.be.fulfilled.with.string(
             testUser.id!
         )
+    })
+
+    it('should throw a service error if something occurs', function () {
+        sinon.replace(userRepository, 'getById', sinon.fake.throws('database layer error'))
+
+        return check('test-user-id').should.eventually.be.rejectedWith(ServiceError).with.property('message', 'database layer error')
     })
 })

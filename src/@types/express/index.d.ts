@@ -6,6 +6,7 @@ declare global {
   namespace Express {
       interface Request {
           token?: DecodedIdToken
+          user?: DecodedIdToken
       }
   }
 }

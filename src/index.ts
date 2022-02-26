@@ -61,7 +61,7 @@ app.use(function errorHandler(
     }
     if (err instanceof ServiceError) {
         return res.status(err.status).send({
-            message: err.message,
+            message: err.publicMessage,
             code: err.code,
             service: err.serviceName,
         })

@@ -3,18 +3,20 @@
 enum UserServiceNames { 
     UNIDENTIFIED_ERROR = 'UNIDENTIFIED_ERROR',
     USER_NOT_FOUND = 'USER_NOT_FOUND',
+    CHECK_ERROR = 'CHECK_ERROR',
 }
 
 interface ServiceErrorInfo {
     code: string
     status: number
-    message: string
     service: string
+    publicMessage: string
 }
 
 export const UserServiceErrors : Record<UserServiceNames, ServiceErrorInfo> = {
-    [UserServiceNames.UNIDENTIFIED_ERROR]: { code: 'S00', status: 500 , message: 'Unidentified error', service: 'user.service' },
-    [UserServiceNames.USER_NOT_FOUND]: { code: 'S01', status: 404, message: 'User not found', service: 'user.service' },
+    [UserServiceNames.UNIDENTIFIED_ERROR]: { code: 'S00', status: 500 , publicMessage: 'Unidentified error', service: 'user.service' },
+    [UserServiceNames.USER_NOT_FOUND]: { code: 'S01', status: 404, publicMessage: 'User not found', service: 'user.service' },
+    [UserServiceNames.CHECK_ERROR]: { code: 'S02', status: 500, publicMessage: 'There was a problem checking this user', service: 'user.service' },
 }
 
 export class AuthError extends Error {
@@ -30,11 +32,14 @@ export class ServiceError extends Error {
     code: string = "00"
     status: number = 500
     serviceName: string = "unidentified service"
-    constructor(errorInfo: ServiceErrorInfo) {
-        super(errorInfo.message)
+    publicMessage: string = "unidentified error"
+
+    constructor(errorInfo: ServiceErrorInfo, message?: string) {
+        super(message ?? errorInfo.publicMessage)
         this.name = 'Service Error'
         this.code = errorInfo.code
         this.status = errorInfo.status
         this.serviceName = errorInfo.service
+        this.publicMessage = errorInfo.publicMessage
     }
 }

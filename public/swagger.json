@@ -45,6 +45,32 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"roles": {
+				"enum": [
+					"admin",
+					"user"
+				],
+				"type": "string"
+			},
+			"Me": {
+				"properties": {
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/roles"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"user",
+					"roles"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ValidateErrorJSON": {
 				"properties": {
 					"message": {
@@ -171,6 +197,34 @@
 					"Users"
 				],
 				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/me": {
+			"get": {
+				"operationId": "Me",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Me"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:read"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},

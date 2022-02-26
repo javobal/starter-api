@@ -4,6 +4,7 @@ import { getAuth } from 'firebase-admin/auth'
 import { ServiceError, UserServiceErrors } from '../types/errors'
 import { Me, roles } from '../types/user'
 import { getEnforcer } from '../lib/casbin'
+import chalk from 'chalk'
 
 export const check = async (uid: string) => {
     try {
@@ -35,8 +36,9 @@ export const check = async (uid: string) => {
             return newUser.id
         }
     } catch (error) {
-        console.error('user.service.check error: ', error)
-        throw error
+        const errorMessage = error instanceof Error ? error.message : undefined
+        console.error(chalk.bold.red('APP ERROR [user.service.check]'), errorMessage)
+        throw new ServiceError(UserServiceErrors.CHECK_ERROR, errorMessage)
     }
 }
 
@@ -49,8 +51,9 @@ export const deleteById = async (uid: string) => {
             throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
         }
     } catch (error) {
-        console.error('user.service.deleteById error: ', error)
-        throw error
+        const errorMessage = error instanceof Error ? error.message : undefined
+        console.error(chalk.bold.red('APP ERROR [user.service.deleteById]'), errorMessage)
+        throw new ServiceError(UserServiceErrors.UNIDENTIFIED_ERROR, errorMessage)
     }
 }
 

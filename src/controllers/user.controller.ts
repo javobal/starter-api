@@ -19,6 +19,7 @@ import { User } from '../model/user'
 import * as userService from '../services/user.service'
 import authMiddleware from './authMiddleware'
 import { Request as ExpressRequest } from 'express'
+import { Me } from '../types/user'
 
 interface ValidateErrorJSON {
     message: 'Validation failed'
@@ -41,6 +42,12 @@ export class UserController extends Controller {
         @Query() cursor?: string
     ): Promise<usersResponse> {
         return users.list(limit, page, cursor)
+    }
+
+    @Get('/me')
+    @Security('access_token', ['users:read'])
+    public async me(@Request() req: ExpressRequest): Promise<Me> {
+        return userService.me(req.user!.uid)
     }
 
     /**
