@@ -76,3 +76,10 @@ OR add this annotation to the nginx controller service : cloud.google.com/networ
 * https://cloud.google.com/kubernetes-engine/pricing
 * https://cloud.google.com/compute/all-pricing#sharedcore
 * https://cloud.google.com/compute/vm-instance-pricing#sustained_use
+
+### Tooling
+
+#### Linting
+https://typescript-eslint.io/docs/linting/
+optional, yarn create @eslint/config or create your config manually
+yarn add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin 
