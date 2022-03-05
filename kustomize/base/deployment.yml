@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: starter-api
-                  image: gcr.io/javobalapp/staging-starter-api:12fac8b2789d59ca0dffb490b6c8b095d63f0cac #gcr.io/PROJECT_ID/IMAGE:TAG
+                  image: gcr.io/PROJECT_ID/IMAGE:TAG
                   ports:
                       - containerPort: 3000
                   resources:

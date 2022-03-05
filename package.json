@@ -6,7 +6,7 @@
     "scripts": {
         "start": "concurrently \"tsc -w\" \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
         "build": "tsoa spec-and-routes && tsc",
-        "test": "tsc && mocha dist/tests/spec.js",
+        "test": "tsc && mocha -r dotenv/config --reporter=spec dist/tests/**/*.spec.js",
         "test:watch": "rm -rf ./dist && concurrently \"tsc -w\" \"mocha --watch -r dotenv/config --reporter=spec dist/tests/**/*.spec.js\""
     },
     "author": "Javier Balam",
