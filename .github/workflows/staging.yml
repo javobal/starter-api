@@ -7,14 +7,14 @@ on:
 
 env:
     PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-    GKE_CLUSTER: javobalapp-gke
-    GKE_ZONE: us-central1
+    GKE_CLUSTER: cluster-test
+    GKE_ZONE: us-central1-c
     DEPLOYMENT_NAME: staging-starter-api
     IMAGE: staging-starter-api
 
 jobs:
     setup-build-publish-deploy:
-        if: ${{ false }}  # disable for now
+        if: ${{ true }}  # disable for now
         name: Setup, Build, Publish, and Deploy
         runs-on: ubuntu-latest
         environment: staging
