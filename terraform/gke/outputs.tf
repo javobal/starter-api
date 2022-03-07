@@ -1,3 +1,8 @@
+output "zone" {
+  value       = var.zone
+  description = "GCloud Zone"
+}
+
 output "region" {
   value       = var.region
   description = "GCloud Region"

@@ -6,6 +6,10 @@ variable "region" {
   description = "region"
 }
 
+variable "zone" {
+  description = "zone"
+}
+
 provider "google" {
   project = var.project_id
   region  = var.region
@@ -22,5 +26,15 @@ resource "google_compute_subnetwork" "subnet" {
   name          = "${var.project_id}-subnet"
   region        = var.region
   network       = google_compute_network.vpc.name
-  ip_cidr_range = "10.10.0.0/24"
+  ip_cidr_range = "10.10.0.0/23"
+
+  secondary_ip_range {
+    range_name    = "services-range"
+    ip_cidr_range = "192.168.64.0/22"
+  }
+
+  secondary_ip_range {
+    range_name    = "pod-ranges"
+    ip_cidr_range = "192.168.0.0/20"
+  }
 }
