@@ -15,14 +15,14 @@ data "terraform_remote_state" "gke" {
   backend = "local"
 
   config = {
-    path = "../learn-terraform-provision-gke-cluster/terraform.tfstate"
+    path = "../gke/terraform.tfstate"
   }
 }
 
 # Retrieve GKE cluster information
 provider "google" {
   project = data.terraform_remote_state.gke.outputs.project_id
-  location  = data.terraform_remote_state.gke.outputs.location
+  region  = data.terraform_remote_state.gke.outputs.region
 }
 
 # Configure kubernetes provider with Oauth2 access token.
@@ -32,7 +32,7 @@ data "google_client_config" "default" {}
 
 data "google_container_cluster" "my_cluster" {
   name     = data.terraform_remote_state.gke.outputs.kubernetes_cluster_name
-  location = data.terraform_remote_state.gke.outputs.location
+  location = data.terraform_remote_state.gke.outputs.zone
 }
 
 provider "kubernetes" {
