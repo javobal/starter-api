@@ -5,7 +5,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
-  ingressClassName: staging-nginx
+  ingressClassName: nginx
   tls:
   - hosts:
     - starter-api-stag.javobal.xyz

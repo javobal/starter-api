@@ -16,7 +16,7 @@ resource "kubernetes_cluster_role_binding_v1" "cluster-admin-binding" {
 
 
 resource "helm_release" "ingress-nginx" {
-  name             = "my-ingress-nginx-release"
+  name             = "ingress-nginx"
   repository       = "https://kubernetes.github.io/ingress-nginx"
   chart            = "ingress-nginx"
   version          = "4.0.9"
