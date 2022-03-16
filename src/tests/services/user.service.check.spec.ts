@@ -47,7 +47,7 @@ describe('user.service.check', function () {
             'getAuth',
             sinon.fake.returns({
                 getUser: sinon.fake.resolves(testUser as UserRecord),
-            })
+            } as unknown as Auth)
         )
         sinon.replace(
             userRepository,
