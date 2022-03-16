@@ -3,7 +3,7 @@ module.exports = {
         es2021: true,
         node: true,
     },
-    extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
+    extends: ['eslint:recommended', 'prettier'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
@@ -11,6 +11,5 @@ module.exports = {
     },
     plugins: ['@typescript-eslint'],
     rules: {
-        'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }], // Tem fix for node/no-unsupported-festures/es-syntax
-    },
+    }
 }
