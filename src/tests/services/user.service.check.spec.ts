@@ -9,7 +9,7 @@ import { check } from '../../services/user.service'
 import { User } from '../../model/user'
 import * as userRepository from '../../repositories/user.repository'
 import * as auth from 'firebase-admin/auth'
-import { UserRecord } from 'firebase-admin/auth'
+import { Auth, UserRecord } from 'firebase-admin/auth'
 import { ServiceError, UserServiceErrors } from '../../types/errors'
 
 chai.use(chaiAsPromised)

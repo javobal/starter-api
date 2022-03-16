@@ -8,7 +8,6 @@ import { deleteById } from '../../services/user.service'
 // dependencies
 import { User } from '../../model/user'
 import * as userRepository from '../../repositories/user.repository'
-import { WriteResult} from 'firebase-admin/firestore'
 
 chai.use(chaiAsPromised)
 chai.should()
@@ -22,12 +21,12 @@ describe('user.service.deleteById', function () {
 
         const testUser: User = {
             id: 'test-user-id',
-            name: 'Javer',
+            name: 'Javier',
             email: 'javier.balam@gmail.com',
         }
 
         sinon.replace(userRepository, 'getById', sinon.fake.resolves(testUser))
-        sinon.replace(userRepository, 'deleteById', sinon.fake.resolves({ writeTime: '333'} as unknown as WriteResult))
+        sinon.replace(userRepository, 'deleteById', sinon.fake.resolves(true))
 
         return deleteById('test-user-id').should.eventually.be.fulfilled
     })

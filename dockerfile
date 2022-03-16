@@ -8,7 +8,7 @@ COPY yarn.lock ./
 RUN yarn install
 
 COPY . .
-RUN yarn build
+RUN yarn build:docker
 
 # deploy image
 FROM node:14 as deploy

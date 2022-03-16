@@ -58,4 +58,5 @@ export const update = async (id: string, userData: User) => {
 export const deleteById = async (id: string) => {
     const doc = await admin.firestore().collection('users').doc(id)
     await doc.delete()
+    return true
 }
