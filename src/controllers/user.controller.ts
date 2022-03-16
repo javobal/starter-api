@@ -80,7 +80,10 @@ export class UserController extends Controller {
     @Delete('/:id')
     @Security('access_token', ['users:write'])
     @SuccessResponse(200, 'Deleted')
-    public async delete(@Request() req: ExpressRequest, @Path() id: string): Promise<void> {
+    public async delete(
+        @Request() req: ExpressRequest,
+        @Path() id: string
+    ): Promise<void> {
         this.setStatus(200)
         return userService.deleteById(id)
     }

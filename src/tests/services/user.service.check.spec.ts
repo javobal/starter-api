@@ -61,8 +61,14 @@ describe('user.service.check', function () {
     })
 
     it('should throw a service error if something occurs', function () {
-        sinon.replace(userRepository, 'getById', sinon.fake.throws('database layer error'))
+        sinon.replace(
+            userRepository,
+            'getById',
+            sinon.fake.throws('database layer error')
+        )
 
-        return check('test-user-id').should.eventually.be.rejectedWith(ServiceError).with.property('message', 'database layer error')
+        return check('test-user-id')
+            .should.eventually.be.rejectedWith(ServiceError)
+            .with.property('message', 'database layer error')
     })
 })

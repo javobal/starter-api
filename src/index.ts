@@ -23,6 +23,10 @@ app.use(morgan('tiny'))
 app.use(express.static('public'))
 app.use(cors())
 
+app.get('/', (_req, res: ExResponse) => {
+    res.send(`API Starter`)
+})
+
 app.use(
     '/docs',
     swaggerUi.serve,

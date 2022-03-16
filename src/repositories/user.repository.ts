@@ -21,7 +21,7 @@ export const list = async (
         .firestore()
         .collection('users')
         .limit(limit)
-        //.startAfter(cursorSnapshot || null)
+        // .startAfter(cursorSnapshot || null)
         .offset(limit * page)
         .get()
     return {
@@ -42,7 +42,7 @@ export const createOrUpdate = async (userData: User) => {
 
     const user = await doc.get()
 
-    return { ...user.data(), id: user.id } as User 
+    return { ...user.data(), id: user.id } as User
 }
 
 export const update = async (id: string, userData: User) => {
@@ -52,7 +52,7 @@ export const update = async (id: string, userData: User) => {
 
     const user = await doc.get()
 
-    return { ...user.data(), id: user.id } as User 
+    return { ...user.data(), id: user.id } as User
 }
 
 export const deleteById = async (id: string) => {

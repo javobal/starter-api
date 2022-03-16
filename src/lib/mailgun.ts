@@ -5,7 +5,11 @@ const mg = mailgun({
     domain: process.env.MAILGUN_DOMAIN || '',
 })
 
-export async function sendEmail(to: string, subject: string, text: string) : Promise<mailgun.messages.SendResponse | undefined> {
+export async function sendEmail(
+    to: string,
+    subject: string,
+    text: string
+): Promise<mailgun.messages.SendResponse | undefined> {
     const data = {
         from: 'Javobal <noreply@javobal.xyz>',
         to: to,

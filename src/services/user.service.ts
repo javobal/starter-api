@@ -74,12 +74,12 @@ export const getRoles = async (uid: string) => {
     return roles
 }
 
-export const me = async (uid: string) : Promise<Me> => { 
+export const me = async (uid: string): Promise<Me> => {
     const user = await userRepository.getById(uid)
     if (user) {
         return {
             user,
-            roles: await getEnforcer().getRolesForUser(uid) as unknown as roles[]
+            roles: (await getEnforcer().getRolesForUser(uid)) as unknown as roles[],
         }
     } else {
         throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)

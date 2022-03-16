@@ -3,7 +3,11 @@ import { getAuth } from 'firebase-admin/auth'
 import { getEnforcer } from '../lib/casbin'
 import { AuthError } from '../types/errors'
 
-export async function expressAuthentication(req: Request, securityName: string, scopes?: string[]) {
+export async function expressAuthentication(
+    req: Request,
+    securityName: string,
+    scopes?: string[]
+) {
     if (!req.headers.authorization) {
         throw new AuthError('no access token provided', 401)
     }
@@ -19,11 +23,12 @@ export async function expressAuthentication(req: Request, securityName: string, 
             const [obj, act] = scopes[0].split(':')
 
             const allowed = await getEnforcer().enforce(decodedToken.uid, obj, act)
-            if (!allowed)
+            if (!allowed) {
                 throw new AuthError(
                     `forbidded action ${act} on ${obj} for user uid: ${decodedToken.uid} `,
                     403
                 )
+            }
         }
 
         return decodedToken

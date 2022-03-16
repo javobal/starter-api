@@ -12,13 +12,12 @@ import * as userRepository from '../../repositories/user.repository'
 chai.use(chaiAsPromised)
 chai.should()
 
-describe('user.service.deleteById', function () { 
+describe('user.service.deleteById', function () {
     afterEach(function () {
         sinon.restore()
     })
 
     it('should delete the user', function () {
-
         const testUser: User = {
             id: 'test-user-id',
             name: 'Javier',

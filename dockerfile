@@ -1,5 +1,5 @@
 # build image
-FROM node:14 as build
+FROM node:16 as build
 ENV NODE_ENV=development
 WORKDIR /usr/src/app
 
@@ -11,7 +11,7 @@ COPY . .
 RUN yarn build:docker
 
 # deploy image
-FROM node:14 as deploy
+FROM node:16 as deploy
 ARG PORT=3000
 ARG NODE_ENV=production
 ARG GOOGLE_APPLICATION_CREDENTIALS=sec/javobalapp-firebase-adminsdk-9zq37-de93c72663.json

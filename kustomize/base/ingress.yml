@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: starter-api-ingress
+    name: starter-api-ingress
 spec:
-  ingressClassName: nginx
-  rules:
-    - host: starter-api.javobal.xyz
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: starter-api-service
-            servicePort: 80
+    ingressClassName: nginx
+    rules:
+        - host: starter-api.javobal.xyz
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        serviceName: starter-api-service
+                        servicePort: 80

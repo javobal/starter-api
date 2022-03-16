@@ -14,7 +14,7 @@ env:
 
 jobs:
     setup-build-publish-deploy:
-        if: ${{ true }}  # disable for now
+        if: ${{ true }} # disable for now
         name: Setup, Build, Publish, and Deploy
         runs-on: ubuntu-latest
         environment: staging
@@ -51,8 +51,8 @@ jobs:
             # Build the Docker image
             - name: Build
               env:
-                MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
-                MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+                  MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+                  MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
               run: |-
                   docker build \
                     --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
