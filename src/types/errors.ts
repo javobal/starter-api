@@ -1,9 +1,3 @@
-enum UserServiceNames {
-    UNIDENTIFIED_ERROR = 'UNIDENTIFIED_ERROR',
-    USER_NOT_FOUND = 'USER_NOT_FOUND',
-    CHECK_ERROR = 'CHECK_ERROR',
-}
-
 interface ServiceErrorInfo {
     code: string
     status: number
@@ -11,20 +5,20 @@ interface ServiceErrorInfo {
     publicMessage: string
 }
 
-export const UserServiceErrors: Record<UserServiceNames, ServiceErrorInfo> = {
-    [UserServiceNames.UNIDENTIFIED_ERROR]: {
+export const UserServiceErrors: Record<string, ServiceErrorInfo> = {
+    'UNIDENTIFIED_ERROR': {
         code: 'S00',
         status: 500,
         publicMessage: 'Unidentified error',
         service: 'user.service',
     },
-    [UserServiceNames.USER_NOT_FOUND]: {
+    'USER_NOT_FOUND': {
         code: 'S01',
         status: 404,
         publicMessage: 'User not found',
         service: 'user.service',
     },
-    [UserServiceNames.CHECK_ERROR]: {
+    'CHECK_ERROR': {
         code: 'S02',
         status: 500,
         publicMessage: 'There was a problem checking this user',

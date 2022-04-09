@@ -76,6 +76,7 @@ export const getRoles = async (uid: string) => {
 
 export const me = async (uid: string): Promise<Me> => {
     const user = await userRepository.getById(uid)
+
     if (user) {
         return {
             user,
