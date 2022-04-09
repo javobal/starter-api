@@ -1,348 +1,388 @@
 {
-    "components": {
-        "examples": {},
-        "headers": {},
-        "parameters": {},
-        "requestBodies": {},
-        "responses": {},
-        "schemas": {
-            "User": {
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name the user used to register his account"
-                    },
-                    "lastName": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "additionalProperties": false
-            },
-            "usersResponse": {
-                "properties": {
-                    "count": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "users": {
-                        "items": {
-                            "$ref": "#/components/schemas/User"
-                        },
-                        "type": "array"
-                    }
-                },
-                "required": ["count", "users"],
-                "type": "object",
-                "additionalProperties": false
-            },
-            "roles": {
-                "enum": ["admin", "user"],
-                "type": "string"
-            },
-            "Me": {
-                "properties": {
-                    "user": {
-                        "$ref": "#/components/schemas/User"
-                    },
-                    "roles": {
-                        "items": {
-                            "$ref": "#/components/schemas/roles"
-                        },
-                        "type": "array"
-                    }
-                },
-                "required": ["user", "roles"],
-                "type": "object",
-                "additionalProperties": false
-            },
-            "ValidateErrorJSON": {
-                "properties": {
-                    "message": {
-                        "type": "string",
-                        "enum": ["Validation failed"],
-                        "nullable": false
-                    },
-                    "details": {
-                        "properties": {},
-                        "additionalProperties": {},
-                        "type": "object"
-                    }
-                },
-                "required": ["message", "details"],
-                "type": "object",
-                "additionalProperties": false
-            }
-        },
-        "securitySchemes": {
-            "access_token": {
-                "type": "http",
-                "name": "access_token",
-                "scheme": "bearer"
-            }
-        }
-    },
-    "info": {
-        "title": "javobal-starter-api",
-        "version": "1.0.0",
-        "description": "API starter template",
-        "license": {
-            "name": "ISC"
-        },
-        "contact": {
-            "name": "Javier Balam"
-        }
-    },
-    "openapi": "3.0.0",
-    "paths": {
-        "/users": {
-            "get": {
-                "operationId": "List",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/usersResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:read"]
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "required": false,
-                        "schema": {
-                            "format": "double",
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "in": "query",
-                        "name": "page",
-                        "required": false,
-                        "schema": {
-                            "format": "double",
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "in": "query",
-                        "name": "cursor",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            },
-            "post": {
-                "operationId": "CreateOrUpdate",
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Failed",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidateErrorJSON"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [],
-                "parameters": []
-            }
-        },
-        "/users/me": {
-            "get": {
-                "operationId": "Me",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Me"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:read"]
-                    }
-                ],
-                "parameters": []
-            }
-        },
-        "/users/{id}": {
-            "get": {
-                "operationId": "GetById",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/User"
-                                        }
-                                    ],
-                                    "nullable": true
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:read"]
-                    }
-                ],
-                "parameters": [
-                    {
-                        "description": "The user's identifier",
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            },
-            "delete": {
-                "operationId": "Delete",
-                "responses": {
-                    "200": {
-                        "description": "Deleted"
-                    }
-                },
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:write"]
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            },
-            "post": {
-                "operationId": "Update",
-                "responses": {
-                    "204": {
-                        "description": "No content"
-                    }
-                },
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:write"]
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{id}/roles": {
-            "get": {
-                "operationId": "Roles",
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "nullable": true
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": ["Users"],
-                "security": [
-                    {
-                        "access_token": ["users:read"]
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "servers": [
-        {
-            "url": "/"
-        }
-    ]
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string",
+						"description": "The name the user used to register his account"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"usersResponse": {
+				"properties": {
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"users": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"count",
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"roles": {
+				"enum": [
+					"admin",
+					"user"
+				],
+				"type": "string"
+			},
+			"Me": {
+				"properties": {
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/roles"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"user",
+					"roles"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"access_token": {
+				"type": "http",
+				"name": "access_token",
+				"scheme": "bearer"
+			}
+		}
+	},
+	"info": {
+		"title": "javobal-starter-api",
+		"version": "1.0.0",
+		"description": "API starter template",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Javier Balam"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/users": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/usersResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:read"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "cursor",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateOrUpdate",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/me": {
+			"get": {
+				"operationId": "Me",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Me"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:read"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/User"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:read"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"description": "The user's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Deleted"
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:write"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "Update",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:write"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/User"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/{id}/roles": {
+			"get": {
+				"operationId": "Roles",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array",
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"access_token": [
+							"users:read"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
 }

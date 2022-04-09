@@ -6,13 +6,13 @@ export const list = async (
     page: number = 0,
     cursor: string | undefined = undefined
 ) => {
-    let cursorSnapshot
+    //let cursorSnapshot
     if (cursor) {
-        cursorSnapshot = await admin
+        /*cursorSnapshot = await admin
             .firestore()
             .collection('users')
             .doc(cursor || '0')
-            .get()
+            .get()*/
     }
 
     const allUsers = await admin.firestore().collection('users').get()
