@@ -26,9 +26,9 @@ interface ValidateErrorJSON {
     details: { [name: string]: unknown }
 }
 
-interface usersResponse {
-    count: number
-    users: User[]
+interface TableResponse<T> {
+    count: number,
+    list: T[]
 }
 
 @Route('users')
@@ -40,7 +40,7 @@ export class UserController extends Controller {
         @Query() limit?: number,
         @Query() page?: number,
         @Query() cursor?: string
-    ): Promise<usersResponse> {
+    ): Promise<TableResponse<User>> {
         return users.list(limit, page, cursor)
     }
 

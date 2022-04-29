@@ -1,10 +1,37 @@
 import { sendEmail } from '../lib/mailgun'
 import * as userRepository from '../repositories/user.repository'
 import { getAuth } from 'firebase-admin/auth'
-import { ServiceError, UserServiceErrors } from '../types/errors'
+import { ServiceError, ServiceErrorInfo, UserServiceErrors } from '../types/errors'
 import { Me, roles } from '../types/user'
 import { getEnforcer } from '../lib/casbin'
 import chalk from 'chalk'
+
+function serviceErrorHandler(
+    error: unknown,
+    info: ServiceErrorInfo,
+    methodName?: string
+) : never {
+    const errorMessage = error instanceof Error ? error.message : undefined
+    console.error(
+        chalk.bold.red(`APP ERROR [user.service${methodName ? '.' + methodName : ''}]`),
+        errorMessage
+    )
+
+    if (error instanceof ServiceError) {
+        throw error
+    } else {
+        throw new ServiceError(info, errorMessage)
+    }
+}
+
+export const list = async (limit: number, page: number) => {
+    try {
+        const users = await userRepository.list(limit, page)
+        return users
+    } catch (error) {
+        serviceErrorHandler(error, UserServiceErrors.USER_LIST_ERROR, 'list')
+    }
+}
 
 export const check = async (uid: string) => {
     try {
@@ -36,9 +63,7 @@ export const check = async (uid: string) => {
             return newUser.id
         }
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : undefined
-        console.error(chalk.bold.red('APP ERROR [user.service.check]'), errorMessage)
-        throw new ServiceError(UserServiceErrors.CHECK_ERROR, errorMessage)
+        serviceErrorHandler(error, UserServiceErrors.CHECK_ERROR, 'check')
     }
 }
 
@@ -51,9 +76,7 @@ export const deleteById = async (uid: string) => {
             throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
         }
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : undefined
-        console.error(chalk.bold.red('APP ERROR [user.service.deleteById]'), errorMessage)
-        throw new ServiceError(UserServiceErrors.UNIDENTIFIED_ERROR, errorMessage)
+        serviceErrorHandler(error, UserServiceErrors.USER_DELETE_ERROR, 'deleteById')
     }
 }
 
@@ -64,25 +87,32 @@ export const update = async (uid: string, user: any) => {
             await userRepository.update(uid, user)
         }
     } catch (error) {
-        console.error('user.service.update error: ', error)
-        throw error
+        serviceErrorHandler(error, UserServiceErrors.USER_UPDATE_ERROR, 'update')
     }
 }
 
 export const getRoles = async (uid: string) => {
-    const roles = await getEnforcer().getRolesForUser(uid)
-    return roles
+    try {
+        const roles = await getEnforcer().getRolesForUser(uid)
+        return roles
+    } catch (error) {
+        serviceErrorHandler(error, UserServiceErrors.USER_ROLES_ERROR, 'getRoles')
+    }
 }
 
 export const me = async (uid: string): Promise<Me> => {
-    const user = await userRepository.getById(uid)
+    try {
+        const user = await userRepository.getById(uid)
 
-    if (user) {
-        return {
-            user,
-            roles: (await getEnforcer().getRolesForUser(uid)) as unknown as roles[],
+        if (user) {
+            return {
+                user,
+                roles: (await getEnforcer().getRolesForUser(uid)) as unknown as roles[],
+            }
+        } else {
+            throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
         }
-    } else {
-        throw new ServiceError(UserServiceErrors.USER_NOT_FOUND)
+    } catch (error) {
+        serviceErrorHandler(error, UserServiceErrors.USER_ME_ERROR, 'me')
     }
 }

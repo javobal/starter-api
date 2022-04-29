@@ -25,13 +25,13 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"usersResponse": {
+			"TableResponse_User_": {
 				"properties": {
 					"count": {
 						"type": "number",
 						"format": "double"
 					},
-					"users": {
+					"list": {
 						"items": {
 							"$ref": "#/components/schemas/User"
 						},
@@ -40,7 +40,7 @@
 				},
 				"required": [
 					"count",
-					"users"
+					"list"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -124,7 +124,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/usersResponse"
+									"$ref": "#/components/schemas/TableResponse_User_"
 								}
 							}
 						}

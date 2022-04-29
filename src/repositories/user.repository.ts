@@ -26,7 +26,7 @@ export const list = async (
         .get()
     return {
         count: allUsers.size,
-        users: users.docs.map((u) => ({ ...u.data(), id: u.id } as User)),
+        list: users.docs.map((u) => ({ ...u.data(), id: u.id } as User)),
     }
 }
 

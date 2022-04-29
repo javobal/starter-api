@@ -24,11 +24,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "usersResponse": {
+    "TableResponse_User_": {
         "dataType": "refObject",
         "properties": {
             "count": {"dataType":"double","required":true},
-            "users": {"dataType":"array","array":{"dataType":"refObject","ref":"User"},"required":true},
+            "list": {"dataType":"array","array":{"dataType":"refObject","ref":"User"},"required":true},
         },
         "additionalProperties": false,
     },
