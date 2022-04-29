@@ -33,6 +33,15 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ResponseError": {
+        "dataType": "refObject",
+        "properties": {
+            "message": {"dataType":"string","required":true},
+            "code": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "roles": {
         "dataType": "refEnum",
         "enums": ["admin","user"],
@@ -73,6 +82,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function UserController_list(request: any, response: any, next: any) {
             const args = {
+                    responseError: {"in":"res","name":"404","required":true,"ref":"ResponseError"},
                     limit: {"in":"query","name":"limit","dataType":"double"},
                     page: {"in":"query","name":"page","dataType":"double"},
                     cursor: {"in":"query","name":"cursor","dataType":"string"},

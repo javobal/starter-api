@@ -14,12 +14,16 @@ import {
     Request,
     Delete,
     Security,
+    TsoaResponse,
+    Res,
+    HttpStatusCodeLiteral,
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'
 import authMiddleware from './authMiddleware'
 import { Request as ExpressRequest } from 'express'
 import { Me } from '../types/user'
+import { ServiceError } from '../types/errors'
 
 interface ValidateErrorJSON {
     message: 'Validation failed'
@@ -31,17 +35,35 @@ interface TableResponse<T> {
     list: T[]
 }
 
+interface ResponseError {
+    message: string,
+    code: string
+}
+
+
 @Route('users')
 @Tags('Users')
 export class UserController extends Controller {
+    /**
+   * @param responseError Standard API error response
+   */
     @Get('/')
     @Security('access_token', ['users:read'])
     public async list(
+        @Res() responseError: TsoaResponse<500 | 404, ResponseError>,
         @Query() limit?: number,
         @Query() page?: number,
         @Query() cursor?: string
     ): Promise<TableResponse<User>> {
-        return users.list(limit, page, cursor)
+        try {
+            const usersList = await userService.list(limit, page, cursor)
+            return usersList //TODO: TableResponse formating separated from service list shape
+        } catch (error) {
+            if (error instanceof ServiceError) {
+                return responseError(error.status as unknown as 500 | 404, { message: error.publicMessage, code: error.code });
+            }
+            return responseError(500, { message: 'unknown error', code: '00' });
+        }
     }
 
     @Get('/me')

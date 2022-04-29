@@ -24,9 +24,9 @@ function serviceErrorHandler(
     }
 }
 
-export const list = async (limit: number, page: number) => {
+export const list = async (limit?: number, page?: number, cursor?: string) => {
     try {
-        const users = await userRepository.list(limit, page)
+        const users = await userRepository.list(limit, page, cursor)
         return users
     } catch (error) {
         serviceErrorHandler(error, UserServiceErrors.USER_LIST_ERROR, 'list')
