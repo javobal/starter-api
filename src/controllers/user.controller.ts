@@ -15,8 +15,7 @@ import {
     Delete,
     Security,
     TsoaResponse,
-    Res,
-    HttpStatusCodeLiteral,
+    Res
 } from 'tsoa'
 import { User } from '../model/user'
 import * as userService from '../services/user.service'

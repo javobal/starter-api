@@ -1,56 +1,52 @@
 export interface ServiceErrorInfo {
     code: string
-    status: number
     service: string
     publicMessage: string
 }
 
 export const UserServiceErrors: Record<string, ServiceErrorInfo> = {
     'UNIDENTIFIED_ERROR': {
-        code: 'S00',
-        status: 500,
+        code: 'UNIDENTIFIED_ERROR',
         publicMessage: 'Unidentified error',
         service: 'user',
     },
     'USER_NOT_FOUND': {
-        code: 'S01',
-        status: 404,
+        code: 'USER_NOT_FOUND',
         publicMessage: 'User not found',
         service: 'user',
     },
     'CHECK_ERROR': {
-        code: 'S02',
-        status: 500,
+        code: 'CHECK_ERROR',
         publicMessage: 'There was a problem checking this user',
         service: 'user',
     },
     'USER_LIST_ERROR': {
-        code: 'S03',
-        status: 500,
+        code: 'USER_LIST_ERROR',
         publicMessage: 'There was a problem listing users',
         service: 'user'
     },
+    'USER_GET_ERROR': {
+        code: 'USER_GET_ERROR',
+        publicMessage: 'There was a problem getting the user',
+        service: 'user'
+    },
     'USER_UPDATE_ERROR': {
-        code: 'S04',
-        status: 500,
+        code: 'USER_UPDATE_ERROR',
         publicMessage: 'There was a problem updating the user',
         service: 'user'
     },
     'USER_DELETE_ERROR': {
-        code: 'S05',
-        status: 500,
+        code: 'USER_DELETE_ERROR',
         publicMessage: 'There was a problem deleting the user',
         service: 'user'
     },
     'USER_ROLES_ERROR': {
-        code: 'S06',
-        status: 500,
+        code: 'USER_ROLES_ERROR',
         publicMessage: 'There was a problem geting the user\'s roles',
         service: 'user'
     },
     'USER_ME_ERROR': {
-        code: 'S07',
-        status: 500,
+        code: 'USER_ME_ERROR',
         publicMessage: 'There was a problem getting your user',
         service: 'user',
     },

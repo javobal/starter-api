@@ -15,8 +15,6 @@ export const list = async (
             .get()*/
     }
 
-    throw new Error('random error')
-
     const allUsers = await admin.firestore().collection('users').get()
 
     const users = await admin

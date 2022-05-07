@@ -56,7 +56,7 @@ app.use(function errorHandler(
     if (err instanceof ValidateError) {
         console.warn(`Validation Error for ${req.path}:`, err.fields)
         return res.status(422).json({
-            message: 'Validation Failed',
+            message: 'validation failed',
             details: err?.fields,
         })
     }
@@ -67,12 +67,11 @@ app.use(function errorHandler(
         return res.status(err.status).send({
             message: err.publicMessage,
             code: err.code,
-            service: err.serviceName,
         })
     }
     if (err instanceof Error) {
         return res.status(500).json({
-            message: 'Internal Server Error',
+            message: 'internal server error',
         })
     }
 
