@@ -22,7 +22,7 @@ import * as userService from '../services/user.service'
 import authMiddleware from './authMiddleware'
 import { Request as ExpressRequest } from 'express'
 import { Me } from '../types/user'
-import { ServiceError } from '../types/errors'
+import { ServiceError } from '../types/serviceErrors'
 
 interface ValidateErrorJSON {
     message: 'Validation failed'

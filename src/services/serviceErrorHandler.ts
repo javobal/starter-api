@@ -1,5 +1,5 @@
 import chalk from "chalk"
-import { ServiceError, ServiceErrorInfo } from "../types/errors"
+import { ServiceError, ServiceErrorInfo } from "../types/serviceErrors"
 
 
 export default function serviceErrorHandler(

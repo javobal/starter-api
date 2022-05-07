@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { getAuth } from 'firebase-admin/auth'
 import { getEnforcer } from '../lib/casbin'
-import { AuthError } from '../types/errors'
+import { AuthError } from '../types/networkErrors'
 
 export async function expressAuthentication(
     req: Request,

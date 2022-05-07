@@ -52,18 +52,8 @@ export const UserServiceErrors: Record<string, ServiceErrorInfo> = {
     },
 }
 
-export class AuthError extends Error {
-    status: number = 401
-    constructor(message: string, status: number) {
-        super(message)
-        this.name = 'Error'
-        this.status = status
-    }
-}
-
 export class ServiceError extends Error {
     code: string = '00'
-    status: number = 500
     serviceName: string = 'unidentified service'
     publicMessage: string = 'unidentified error'
 
@@ -71,7 +61,6 @@ export class ServiceError extends Error {
         super(message ?? errorInfo.publicMessage)
         this.name = 'Service Error'
         this.code = errorInfo.code
-        this.status = errorInfo.status
         this.serviceName = errorInfo.service
         this.publicMessage = errorInfo.publicMessage
     }

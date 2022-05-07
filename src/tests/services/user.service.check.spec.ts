@@ -10,7 +10,7 @@ import { User } from '../../model/user'
 import * as userRepository from '../../repositories/user.repository'
 import * as auth from 'firebase-admin/auth'
 import { Auth, UserRecord } from 'firebase-admin/auth'
-import { ServiceError } from '../../types/errors'
+import { ServiceError } from '../../types/serviceErrors'
 
 chai.use(chaiAsPromised)
 chai.should()

@@ -10,7 +10,7 @@ import express, {
 } from 'express'
 import { ValidateError } from 'tsoa'
 import cors from 'cors'
-import { AuthError, ServiceError } from './types/errors'
+import { AuthError, ServiceError } from './types/serviceErrors'
 
 // Initializations
 initFirebase()

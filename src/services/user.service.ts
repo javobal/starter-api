@@ -1,7 +1,7 @@
 import { sendEmail } from '../lib/mailgun'
 import * as userRepository from '../repositories/user.repository'
 import { getAuth } from 'firebase-admin/auth'
-import { ServiceError, UserServiceErrors } from '../types/errors'
+import { ServiceError, UserServiceErrors } from '../types/serviceErrors'
 import { Me, roles } from '../types/user'
 import { getEnforcer } from '../lib/casbin'
 import serviceErrorHandler from './serviceErrorHandler'

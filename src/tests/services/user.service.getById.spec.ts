@@ -8,7 +8,7 @@ import { getById } from '../../services/user.service'
 // dependencies
 import { User } from '../../model/user'
 import * as userRepository from '../../repositories/user.repository'
-import { ServiceError } from '../../types/errors'
+import { ServiceError } from '../../types/serviceErrors'
 
 chai.use(chaiAsPromised)
 chai.should()
