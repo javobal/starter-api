@@ -10,7 +10,8 @@ import express, {
 } from 'express'
 import { ValidateError } from 'tsoa'
 import cors from 'cors'
-import { AuthError, ServiceError } from './types/serviceErrors'
+import { ServiceError } from './types/serviceErrors'
+import { AuthError } from './types/networkErrors'
 
 // Initializations
 initFirebase()
@@ -51,7 +52,7 @@ app.use(function errorHandler(
     res: ExResponse,
     next: NextFunction
 ): ExResponse | void {
-    console.error(`Error for ${req.path}:`, err)
+    console.error(`[Error Handler] path: ${req.path} Error:`, err)
 
     if (err instanceof ValidateError) {
         console.warn(`Validation Error for ${req.path}:`, err.fields)
@@ -64,11 +65,14 @@ app.use(function errorHandler(
         return res.status(err.status).send({ message: err.message })
     }
     if (err instanceof ServiceError) {
-        return res.status(err.status).send({
+        return res.status(500).send({
             message: err.publicMessage,
             code: err.code,
         })
     }
+
+    console.error('[Error Handler] Unknown error occurred giving back 500')
+
     if (err instanceof Error) {
         return res.status(500).json({
             message: 'internal server error',

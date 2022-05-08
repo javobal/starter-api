@@ -8,17 +8,17 @@ export async function expressAuthentication(
     securityName: string,
     scopes?: string[]
 ) {
-    if (!req.headers.authorization) {
-        throw new AuthError('no access token provided', 401)
-    }
-    const token = req.headers.authorization.split(' ')[1]
-    if (!token || token === 'null') {
-        throw new AuthError('unauthorized request', 401)
-    }
+    try {
+        if (!req.headers.authorization) {
+            throw new AuthError('no access token provided', 401)
+        }
+        const token = req.headers.authorization.split(' ')[1]
+        if (!token || token === 'null') {
+            throw new AuthError('unauthorized request', 401)
+        }
 
-    const decodedToken = await getAuth().verifyIdToken(token)
+        const decodedToken = await getAuth().verifyIdToken(token)
 
-    if (decodedToken) {
         if (scopes) {
             const [obj, act] = scopes[0].split(':')
 
@@ -32,7 +32,8 @@ export async function expressAuthentication(
         }
 
         return decodedToken
-    } else {
+    } catch (error) {
+        console.error('expressAuthentication Error:', error)
         throw new AuthError('unauthorized request', 401)
     }
 }

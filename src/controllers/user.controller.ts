@@ -59,7 +59,7 @@ export class UserController extends Controller {
             return usersList //TODO: TableResponse formating separated from service list shape
         } catch (error) {
             if (error instanceof ServiceError) {
-                return responseError(error.status as unknown as 500 | 404, { message: error.publicMessage, code: error.code });
+                return responseError(500, { message: error.publicMessage, code: error.code });
             }
             return responseError(500, { message: 'unknown error', code: '00' });
         }
