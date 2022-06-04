@@ -65,6 +65,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Partial_User_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"name":{"dataType":"string"},"lastName":{"dataType":"string"},"email":{"dataType":"string"}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
@@ -241,7 +246,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function UserController_update(request: any, response: any, next: any) {
             const args = {
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"User"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"Partial_User_"},
                     id: {"in":"path","name":"id","required":true,"dataType":"string"},
             };
 

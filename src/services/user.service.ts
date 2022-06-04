@@ -5,6 +5,7 @@ import { ServiceError, UserServiceErrors } from '../types/serviceErrors'
 import { Me, roles } from '../types/user'
 import { getEnforcer } from '../lib/casbin'
 import serviceErrorHandler from './serviceErrorHandler'
+import { User } from '../model/user'
 
 
 
@@ -78,7 +79,7 @@ export const deleteById = async (uid: string) => {
     }
 }
 
-export const update = async (uid: string, user: any) => {
+export const update = async (uid: string, user: Partial<User>) => {
     try {
         const _user = await userRepository.getById(uid)
         if (_user) {

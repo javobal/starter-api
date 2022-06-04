@@ -111,7 +111,8 @@ export class UserController extends Controller {
 
     @Post('/:id')
     @Security('access_token', ['users:write'])
-    public async update(@Body() requestBody: User, @Path() id: string): Promise<void> {
+    public async update(@Body() requestBody: Partial<User>, @Path() id: string): Promise<void> {
+        console.log(requestBody)
         return userService.update(id, requestBody)
     }
 }

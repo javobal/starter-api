@@ -28,6 +28,11 @@ app.get('/', (_req, res: ExResponse) => {
     res.send(`API Starter`)
 })
 
+app.use((req: ExRequest, _res, next: NextFunction) => {
+    console.log('body', req.body)
+    return next()
+})
+
 app.use(
     '/docs',
     swaggerUi.serve,

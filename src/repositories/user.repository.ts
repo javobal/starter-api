@@ -48,6 +48,7 @@ export const createOrUpdate = async (userData: User) => {
 export const update = async (id: string, userData: User) => {
     if (!id) throw new Error('user id is required')
     const doc = await admin.firestore().collection('users').doc(id)
+    console.log('userData', userData)
     await doc.update(userData)
 
     const user = await doc.get()

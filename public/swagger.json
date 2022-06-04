@@ -108,6 +108,25 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Partial_User_": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string",
+						"description": "The name the user used to register his account"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
 			}
 		},
 		"securitySchemes": {
@@ -367,7 +386,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/User"
+								"$ref": "#/components/schemas/Partial_User_"
 							}
 						}
 					}
